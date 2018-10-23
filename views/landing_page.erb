@@ -1,0 +1,32 @@
+<html>
+ <head><title>Find your favorites here!</title>
+   <h1 style="color:black;">"Welcome to the Bookmark Central!"</h1>
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+</style>
+ </head>
+
+ <body>
+    <form action='/refresh' method="post">
+   <table width="50%">
+     <tr>
+       <td width="75%"><textarea name="urlitem" row="1" cols="150"></textarea></td>
+       <td width="25%"><input type="submit" value="Save" name="submit"></td>
+     </tr>
+   </table>
+   <%= @result1 if (@bm.url_list.count > 0) %>
+    <%= @bm.htlist %> </ol>
+    <br>
+    <table>
+      <tr>
+        <td><input type="text" name="deleteitem"></td>
+          <td><input type="submit" value="Delete" name="submit"></td>
+      </tr>
+    </table>
+    <%= @result %>
+      </form>
+ </body>
+</html>
