@@ -6,7 +6,11 @@ class Tracker
   def initialize
     #@url_list = Hash.new
     @url_list = []
-    @connection = PG.connect(dbname: 'bookmark_manager')
+    if ENV['ENVIRONMENT'] == 'test'
+      @connection = PG.connect(dbname: 'bookmark_manager_test')
+    else
+      @connection = PG.connect(dbname: 'bookmark_manager')
+    end
   end
 
   def self.instance
@@ -27,21 +31,17 @@ class Tracker
   end
 
  def delurl(item)
-#   raise 'object not found' if(@url_list.count < item.to_i)
-#      url = @url_list[item.to_i-1]
-#     @url_list.delete_at(item.to_i-1)
   result = @connection.exec('select url from bookmarks where id='+item.to_s+";")
   url = result.map {|b| b["url"]}
   @connection.exec("delete from bookmarks where id="+item.to_s+";")
   dbfetch
-  "#{url} deleted successfully!"
  end
 
   def dbfetch
-    @htlist = "<ol type=\"1\">"
+    @htlist = '<ul style="list-style-type:circle">'
     result = @connection.exec('select * from bookmarks;')
     result.map { |bookmark|
-      @htlist << "<li>" + " #{bookmark["url"]}" + "</li>"
+      @htlist << "<li>" + "id: #{bookmark["id"]} #{bookmark["url"]}" + "</li>"
     }
     @htlist
   end
