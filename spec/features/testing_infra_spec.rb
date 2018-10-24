@@ -6,10 +6,10 @@ feature 'Testing the basic web-page' do
 
   scenario 'Checking if a new url can be added' do
     visit('/')
-    fill_in 'urlitem', with: "https://www.google.co.uk"
+    fill_in 'urlitem', with: "http://www.google.com"
     click_button "Save"
     visit('/')
-    expect(page).to have_content "https://www.google.co.uk"
+    expect(page).to have_content "http://www.google.com"
   end
 
   scenario 'Check for input to delete an entry' do
