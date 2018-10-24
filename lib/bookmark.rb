@@ -27,11 +27,14 @@ class Tracker
   end
 
  def delurl(item)
-   raise 'object not found' if(@url_list.count < item.to_i)
-      url = @url_list[item.to_i-1]
-     @url_list.delete_at(item.to_i-1)
-     dbfetch
-     "#{url} deleted successfully!"
+#   raise 'object not found' if(@url_list.count < item.to_i)
+#      url = @url_list[item.to_i-1]
+#     @url_list.delete_at(item.to_i-1)
+  result = @connection.exec('select url from bookmarks where id='+item.to_s+";")
+  url = result.map {|b| b["url"]}
+  @connection.exec("delete from bookmarks where id="+item.to_s+";")
+  dbfetch
+  "#{url} deleted successfully!"
  end
 
   def dbfetch
