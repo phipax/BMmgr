@@ -18,11 +18,6 @@ class Tracker
   end
 
   def addurl(url)
-#    p "addurl(#{url}) #{@url_list.include?(url)} #{@url_list.count}"
-#    @url_list[@url_list.count+1] = url if !@url_list.include?(url)
-#    @url_list.push(url) if !@url_list.include?(url)
-#    p @url_list
-
     result = @connection.exec('select count(*) from bookmarks;')
     lastcount = result[0]
     str = "insert into bookmarks (id,url) values(#{lastcount["count"].to_i + 1},'#{url}');"
@@ -40,16 +35,12 @@ class Tracker
  end
 
   def dbfetch
-
-    result = @connection.exec('select * from bookmarks;')
-    p result
-    result.map { |bookmark| bookmark['url']}
-
     @htlist = "<ol type=\"1\">"
-    result.each do |x|
-      @htlist << "<li>" + " #{x}" + "</li>"
-    end
-#    p @htlist
+    result = @connection.exec('select * from bookmarks;')
+    result.map { |bookmark|
+      @htlist << "<li>" + " #{bookmark["url"]}" + "</li>"
+    }
+    @htlist
   end
 
 end
