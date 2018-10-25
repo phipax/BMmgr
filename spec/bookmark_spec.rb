@@ -28,9 +28,9 @@ describe 'Initialize BookMark class' do
       it '#dbfetch' do
         t = Tracker.create
         bookmarks = t.dbfetch
-        expect(bookmarks).to include('http://www.makersacademy.com')
-        expect(bookmarks).to include('http://www.destroyallsoftware.com')
-        expect(bookmarks).to include('http://www.google.com')
+        expect(bookmarks[0][:URL]).to include('http://www.makersacademy.com')
+        expect(bookmarks[1][:URL]).to include('http://www.destroyallsoftware.com')
+        expect(bookmarks[2][:URL]).to include('http://www.google.com')
       end
     end
 

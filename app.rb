@@ -19,7 +19,7 @@ class BookMark < Sinatra::Base
     when "Save"
       url_str = params[:urlitem]
       url_tag = params[:title]
-      url_tag="No Title" if url_tag="" || nil
+      url_tag="No Title" if url_tag == "" || url_tag == nil
       @result1 = @bm.addurl(url_str,url_tag)
       redirect '/'
     when "Delete"

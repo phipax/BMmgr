@@ -14,7 +14,7 @@ table, th, tr {
    <table width="50%">
      <tr>
        <td width="70%"><textarea name="urlitem" row="1" cols="100"></textarea></td>
-       <td width="15%"><input type="text" name="title" value="No Title"/></td>
+       <td width="15%"><input name="title" type="text"/></td>
        <td width="15%"><input type="submit" value="Save" name="submit" /></td>
      </tr>
       <tr>
@@ -28,7 +28,7 @@ table, th, tr {
     <%= @result1 if (@bm.htlist.count > 0) %>
     <%= @result %>
      <ul>
-       <% @bookmarks.each do |bookmark| p bookmark%>
+       <% @bookmarks.each do |bookmark|%>
        <li>
          <b># </b><%= bookmark[:ID]%>&nbsp;<a href="<%=bookmark[:URL]%>" target="_blank"> <%=bookmark[:TITLE]%> </a>
        </li>

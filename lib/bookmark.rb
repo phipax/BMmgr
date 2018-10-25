@@ -20,7 +20,7 @@ class Tracker
   end
 
   def addurl(url,tag = "No Title")
-    url = "http://" + url unless url.include?("http://")
+    url = "http://" + url unless url.include?("http://") || url.include?("https://")
     str = "insert into bookmarks (title,url) values('#{tag}','#{url}');"
     result = @connection.exec(str)
     dbfetch
