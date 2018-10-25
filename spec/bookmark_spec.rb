@@ -11,8 +11,9 @@ describe 'Initialize BookMark class' do
   context 'Check for the BookMark object exposed Methods' do
     it '#addurl' do
       t = Tracker.create
-      url = "https://www.google.co.uk"
-      expect(t.addurl(url)).to eq "#{url} added successfully!"
+      url = "https://www.9gag.com"
+      title = "Fun"
+      expect(t.addurl(url,title)).to eq "#{url} added successfully!"
     end
   end
 

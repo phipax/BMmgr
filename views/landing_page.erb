@@ -2,7 +2,7 @@
  <head><title>Find your favorites here!</title>
    <h1 style="color:black;">"Welcome to the Bookmark Central!"</h1>
 <style>
-table, th, td {
+table, th, tr {
     border: 1px solid black;
     border-collapse: collapse;
 }
@@ -13,20 +13,25 @@ table, th, td {
     <form action='/refresh' method="post">
    <table width="50%">
      <tr>
-       <td width="75%"><textarea name="urlitem" row="1" cols="150"></textarea></td>
-       <td width="25%"><input type="submit" value="Save" name="submit"></td>
+       <td width="70%"><textarea name="urlitem" row="1" cols="100"></textarea></td>
+       <td width="15%"><input type="text" name="title" /></td>
+       <td width="15%"><input type="submit" value="Save" name="submit" /></td>
      </tr>
-   </table>
-   <%= @result1 if (@bm.url_list.count > 0) %>
-    <%= @bm.dbfetch %> </ul>
-    <br>
-    <table>
       <tr>
+        <td></td>
         <td><input type="text" name="deleteitem"></td>
-          <td><input type="submit" value="Delete" name="submit"></td>
+        <td><input type="submit" value="Delete" name="submit"></td>
       </tr>
     </table>
-    <%= @result %>
       </form>
+    <%= @result1 if (@bm.htlist.count > 0) %>
+    <%= @result %>
+     <ul>
+       <% @bookmarks.each do |bookmark| p bookmark%>
+       <li>
+         <b># </b><%= bookmark[:ID]%>&nbsp;<a href=<%= bookmark[:URL] %> > <%=bookmark[:TITLE]%> </a>
+       </li>
+      <% end %>
+    </ul>
  </body>
 </html>

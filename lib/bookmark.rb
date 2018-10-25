@@ -1,11 +1,9 @@
 require 'pg'
 
 class Tracker
-  attr_reader :bm, :url_list, :htlist
+  attr_reader :bm, :htlist, :url
 
   def initialize
-    #@url_list = Hash.new
-    @url_list = []
     if ENV['ENVIRONMENT'] == 'test'
       @connection = PG.connect(dbname: 'bookmark_manager_test')
     else
@@ -21,10 +19,8 @@ class Tracker
     @bm = Tracker.new
   end
 
-  def addurl(url)
-    result = @connection.exec('select count(*) from bookmarks;')
-    lastcount = result[0]
-    str = "insert into bookmarks (id,url) values(#{lastcount["count"].to_i + 1},'#{url}');"
+  def addurl(url,tag = "No Title")
+    str = "insert into bookmarks (title,url) values('#{tag}','#{url}');"
     result = @connection.exec(str)
     dbfetch
     "#{url} added successfully!"
@@ -38,12 +34,13 @@ class Tracker
  end
 
   def dbfetch
-    @htlist = '<ul style="list-style-type:circle">'
+    @htlist = Array.new
+    prep_str = ""
     result = @connection.exec('select * from bookmarks;')
     result.map { |bookmark|
-      @htlist << "<li>" + "id: #{bookmark["id"]} #{bookmark["url"]}" + "</li>"
+       prep_str = {:ID=>bookmark['id'],:TITLE=>"#{bookmark['title']}",:URL=>"#{bookmark['url']}"}
+       @htlist.push(prep_str)
     }
     @htlist
   end
-
 end
